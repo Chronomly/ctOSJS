@@ -6,15 +6,24 @@ const client = new QuickBot({
     token: config.token,
     database: './database.json'
 });
+const db = require('./chrono-db');
+client.settings = new db('./database.json')
+console.log(client.settings)
 const prefix = config.prefix;
-const bannedWords = ['dab'];
+const bannedWords = config.bannedWords;
 
 function reportCrime(message, user, crimeData) {
+    function crimeTypeParse(crimeType) {
+        if(crimeType === 'bannedWord') {
+            return 'User said a word banned in this server'
+        }
+    }
+    crimeData.crimeType = crimeTypeParse(crimeData.crimeType)
     console.log(crimeData)
     const embed = new RichEmbed()
     .setAuthor('Crime Detected!', client.user.avatarURL)
     .setThumbnail(user.avatarURL)
-    .setDescription(`CrimeType: ${crimeData.crimeType}\nInfo on **${user.tag}** (ID: ${user.id})`)
+    .setDescription(`Crime: ${crimeData.crimeType}\n\nInfo on **${user.tag}** (ID: ${user.id})\n`)
     .setColor('0x0000FF')
     .addField('🚶 **User Info:**', `Created at: ${user.createdAt}\n${user.bot ? 'Account Type: Bot' : 'Account Type: User'}\nStatus: ${user.presence.status}\nGame: ${user.presence.game ? user.presence.game.name : 'None'}`)
     .setFooter(`Powered by ${client.user.username}`)
@@ -24,13 +33,13 @@ function reportCrime(message, user, crimeData) {
         client.settings.set(user.id, 'MAX');
     } else {
         embed.addField('Crime Int', `${crimeData.int}`)
-        client.settings.set(user.id, `${crimeData.int}`);
+        client.settings.set(user.id, Number(crimeData.int));
     }
     message.channel.send({embed: embed})
 }
 
 client.on('ready', () => {
-    console.log(client.settings.get(client.owner.id)+1)
+    console.log(client.settings.get('251383432331001856'))
 })
 
 client.on('message', msg => {
@@ -58,8 +67,15 @@ client.on('message', msg => {
         case "mod" :
             if(msg.author.id = client.owner.id) {
                 if(args[0] = 'set') {
-                    if(args.join(' ') === "") return msg.reply('')
+                    if(args.join(' ') === "") return msg.reply('Please enter arguments')
                     client.settings.set(args[1], args[2])
+                    msg.reply(client.settings.get('hi'))
+                }
+                if(args[0] = 'ctOS') {
+                    if(args.join(' ') === "") return msg.reply('Please enter arguments')
+                    if(args[1] === 'enable') {
+                        message.channel.send('Enabling ctOS for this server')
+                    }
                     msg.reply(client.settings.get('hi'))
                 }
             } else {
