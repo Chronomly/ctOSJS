@@ -24,6 +24,7 @@ module.exports = class JSONDatabase {
     }
 
     async get(key) {
+        console.log(this._store)
         this.sync();
 
         if (!!this._store[key] === false) {
