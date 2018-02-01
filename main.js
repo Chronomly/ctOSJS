@@ -6,7 +6,7 @@ const client = new QuickBot({
     token: config.token,
     database: './database.json'
 });
-const db = require('./chrono-db');
+const db = require('./chrono-db.js');
 client.settings = new db('./database.json')
 console.log(client.settings)
 const prefix = config.prefix;
@@ -38,9 +38,7 @@ function reportCrime(message, user, crimeData) {
     message.channel.send({embed: embed})
 }
 
-client.on('ready', () => {
-    console.log(client.settings.get('251383432331001856'))
-})
+client.on('ready', async () => console.log(await client.settings.get('251383432331001856')));
 
 client.on('message', msg => {
     function badwordDetect(msg) {
@@ -48,7 +46,7 @@ client.on('message', msg => {
             if(msg.content.includes(word)) {
                 reportCrime(msg, msg.author, {
                     crimeType: "bannedWord",
-                    int: Number(client.settings.get(msg.author.id))+1
+                    int: parseInt(client.settings.get(msg.author.id))+1
                 })
                 msg.delete()
                 console.log(`Bad Word Detected:\n${word}\n${msg.author.tag + '/' + msg.author.id}`)
@@ -63,6 +61,9 @@ client.on('message', msg => {
     switch (command) {
         case "ping" :
             msg.channel.send('Pong!');
+            break;
+        case "upvoteme" :
+            msg.react("👍")
             break;
         case "mod" :
             if(msg.author.id = client.owner.id) {
