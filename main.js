@@ -12,10 +12,13 @@ console.log(client.settings)
 const prefix = config.prefix;
 const bannedWords = config.bannedWords;
 
-function reportCrime(message, user, crimeData) {
+function reportCrime(msg, user, crimeData) {
     function crimeTypeParse(crimeType) {
         if(crimeType === 'bannedWord') {
             return 'User said a word banned in this server'
+        }
+        if(crimeType === 'kick') {
+            return 'User is being kicked from the server'
         }
     }
     crimeData.crimeType = crimeTypeParse(crimeData.crimeType)
@@ -35,7 +38,7 @@ function reportCrime(message, user, crimeData) {
         embed.addField('Crime Int', `${crimeData.int}`)
         client.settings.set(user.id, Number(crimeData.int));
     }
-    message.channel.send({embed: embed})
+    msg.channel.send({embed: embed})
 }
 
 client.on('ready', async () => console.log(await client.settings.get('251383432331001856')));
@@ -75,12 +78,12 @@ client.on('message', msg => {
                 if(args[0] = 'ctOS') {
                     if(args.join(' ') === "") return msg.reply('Please enter arguments')
                     if(args[1] === 'enable') {
-                        message.channel.send('Enabling ctOS for this server')
+                        msg.channel.send('Enabling ctOS for this server')
                     }
                     msg.reply(client.settings.get('hi'))
                 }
             } else {
-                msg.reply('no u')
+                return null;
             }
             break;
     }
