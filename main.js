@@ -13,7 +13,7 @@ setInterval(() => {
 // Normal Code
 const QuickBot = require('./quickbot.js');
 const { RichEmbed } = require('discord.js');
-const config = require('./config.json');
+const config = require('./config.js');
 const client = new QuickBot({
     owner: '251383432331001856',
     token: config.token,
