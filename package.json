@@ -2,10 +2,10 @@
   "name": "discord-ctos",
   "version": "0.0.1",
   "description": "A fan bot of ctOS from the Watch Dogs game series",
-  "main": "node index.js",
+  "main": "node main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node main.js"
   },
   "engines": { "node": "8.4.0" },
   "repository": {
