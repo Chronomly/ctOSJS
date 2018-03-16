@@ -1,27 +1,28 @@
 {
-  "name": "ctOSJS",
-  "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
-  "dependencies": {
-    "child_process": "^1.0.2",
-    "clipboardy": "^1.2.2",
-    "discord.js": "^11.3.0",
-    "inquirer": "^5.0.1"
-  },
-  "devDependencies": {},
+  "name": "discord-ctos",
+  "version": "0.0.1",
+  "description": "A fan bot of ctOS from the Watch Dogs game series",
+  "main": "node index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
+  "engines": { "node": "8.4.0" },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Chronomly/ctOSJS.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Chronomly and jdenderplays",
+  "license": "None",
   "bugs": {
     "url": "https://github.com/Chronomly/ctOSJS/issues"
   },
-  "homepage": "https://github.com/Chronomly/ctOSJS#readme"
+  "homepage": "https://github.com/Chronomly/ctOSJS#readme",
+  "dependencies": {
+    "discord.js": "^11.2.1",
+    "enmap": "^0.3.2",
+    "moment": "^2.18.1",
+    "moment-duration-format": "^1.3.0",
+    "express": "^4.15.5"
+  }
 }
